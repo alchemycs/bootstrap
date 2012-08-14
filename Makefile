@@ -25,6 +25,7 @@ build:
 	@cp img/* docs/assets/img/
 	@cp js/*.js docs/assets/js/
 	@cp js/tests/vendor/jquery.js docs/assets/js/
+	@cp submodules/font-awesome/font/* docs/assets/font/
 	@echo "Compiling documentation...                  ${CHECK} Done"
 	@cat js/bootstrap-transition.js js/bootstrap-alert.js js/bootstrap-button.js js/bootstrap-carousel.js js/bootstrap-collapse.js js/bootstrap-dropdown.js js/bootstrap-modal.js js/bootstrap-tooltip.js js/bootstrap-popover.js js/bootstrap-scrollspy.js js/bootstrap-tab.js js/bootstrap-typeahead.js js/bootstrap-affix.js > docs/assets/js/bootstrap.js
 	@uglifyjs docs/assets/js/bootstrap.js -nc > docs/assets/js/bootstrap.min.tmp.js
@@ -66,7 +67,9 @@ bootstrap:
 	mkdir -p bootstrap/img
 	mkdir -p bootstrap/css
 	mkdir -p bootstrap/js
+	mkdir -p bootstrap/font
 	cp img/* bootstrap/img/
+	cp submodules/font-awesome/font/* bootstrap/font/
 	recess --compile ${BOOTSTRAP_LESS} > bootstrap/css/bootstrap.css
 	recess --compress ${BOOTSTRAP_LESS} > bootstrap/css/bootstrap.min.css
 	recess --compile ${BOOTSTRAP_RESPONSIVE_LESS} > bootstrap/css/bootstrap-responsive.css
