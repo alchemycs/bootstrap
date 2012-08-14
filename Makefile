@@ -25,6 +25,7 @@ build:
 	@cp img/* docs/assets/img/
 	@cp js/*.js docs/assets/js/
 	@cp js/tests/vendor/jquery.js docs/assets/js/
+	@cp submodules/font-awesome/font/* docs/assets/font/
 	@echo "Compiling documentation...                  ${CHECK} Done"
 	@cat js/bootstrap-transition.js js/bootstrap-alert.js js/bootstrap-button.js js/bootstrap-carousel.js js/bootstrap-collapse.js js/bootstrap-dropdown.js js/bootstrap-modal.js js/bootstrap-tooltip.js js/bootstrap-popover.js js/bootstrap-scrollspy.js js/bootstrap-tab.js js/bootstrap-typeahead.js js/bootstrap-affix.js > docs/assets/js/bootstrap.js
 	@./node_modules/.bin/uglifyjs -nc docs/assets/js/bootstrap.js > docs/assets/js/bootstrap.min.tmp.js
@@ -72,6 +73,13 @@ bootstrap-js: bootstrap/js/*.js
 
 bootstrap/js/*.js: js/*.js
 	mkdir -p bootstrap/js
+	mkdir -p bootstrap/font
+	cp img/* bootstrap/img/
+	cp submodules/font-awesome/font/* bootstrap/font/
+	recess --compile ${BOOTSTRAP_LESS} > bootstrap/css/bootstrap.css
+	recess --compress ${BOOTSTRAP_LESS} > bootstrap/css/bootstrap.min.css
+	recess --compile ${BOOTSTRAP_RESPONSIVE_LESS} > bootstrap/css/bootstrap-responsive.css
+	recess --compress ${BOOTSTRAP_RESPONSIVE_LESS} > bootstrap/css/bootstrap-responsive.min.css
 	cat js/bootstrap-transition.js js/bootstrap-alert.js js/bootstrap-button.js js/bootstrap-carousel.js js/bootstrap-collapse.js js/bootstrap-dropdown.js js/bootstrap-modal.js js/bootstrap-tooltip.js js/bootstrap-popover.js js/bootstrap-scrollspy.js js/bootstrap-tab.js js/bootstrap-typeahead.js js/bootstrap-affix.js > bootstrap/js/bootstrap.js
 	./node_modules/.bin/uglifyjs -nc bootstrap/js/bootstrap.js > bootstrap/js/bootstrap.min.tmp.js
 	echo "/*!\n* Bootstrap.js by @fat & @mdo\n* Copyright 2012 Twitter, Inc.\n* http://www.apache.org/licenses/LICENSE-2.0.txt\n*/" > bootstrap/js/copyright.js
@@ -123,4 +131,8 @@ watch:
 	watchr -e "watch('less/.*\.less') { system 'make' }"
 
 
+<<<<<<< HEAD
 .PHONY: docs watch gh-pages bootstrap-img bootstrap-css bootstrap-js
+=======
+.PHONY: docs watch gh-pages
+>>>>>>> Update Makefile to copy font-awesome font assets
